@@ -1,3 +1,4 @@
+!pip install seaborn
 import streamlit as st
 import re
 import csv
