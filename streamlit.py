@@ -1,4 +1,3 @@
-pip install seaborn
 import streamlit as st
 import re
 import csv
@@ -8,7 +7,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from io import StringIO
 from wordcloud import WordCloud
-from matplotlib.cm import get_cmap
 import streamlit as st
 
 def main():
@@ -84,12 +82,11 @@ if uploaded_file is not None:
     num_messages_with_links = df_chat['contains_link'].sum()
     st.write(f"Number of messages with links: {num_messages_with_links}")
 
-    cmap = get_cmap('tab20')
 
     num_categories = len(df_chat['name'].value_counts())
 
     fig, ax = plt.subplots(figsize=(12, 8))
-    df_chat['name'].value_counts().head(25).plot(kind="bar", ax=ax, color=cmap(np.arange(num_categories) % 20))
+    df_chat['name'].value_counts().head(25).plot(kind="bar", ax=ax,)
     ax.set_title('Top 25 Most Active Chat Participants')
     ax.set_xlabel('Name')
     ax.set_ylabel('Message Count')
@@ -98,15 +95,15 @@ if uploaded_file is not None:
     num_messages = len(df_chat['message'].value_counts())
 
     fig, ax = plt.subplots(figsize=(12, 8))
-    df_chat['message'].value_counts().head(5).plot(kind="bar", ax=ax, color=cmap(np.arange(num_messages) % 20))
-    ax.set_title('Top 10 Most Common Messages')
+    df_chat['message'].value_counts().head(3).plot(kind="bar", ax=ax, )
+    ax.set_title('Top 3 Most Common Messages')
     ax.set_xlabel('Messages')
     ax.set_ylabel('Frequency')
     st.pyplot(fig)
 
     fig, ax = plt.subplots(figsize=(12, 8))
     df_chat['hour_category'] = pd.cut(df_chat['time_in_min'], bins=24, labels=range(24))
-    df_chat['hour_category'].value_counts().head(25).plot(kind="bar", ax=ax, color=cmap(np.arange(25) % 20))
+    df_chat['hour_category'].value_counts().head(25).plot(kind="bar", ax=ax, )
     ax.set_title('Top 25 Hour Categories')
     ax.set_xlabel('Hour Category')
     ax.set_ylabel('Count')
@@ -138,7 +135,7 @@ if uploaded_file is not None:
     # Print the total word count
     st.write("Total word count:", total_word_count)
 
-    # Download the updated dataset
+    # Download the updated dataset streamlit run streamlit.py --server.enableCORS false --server.enableXsrfProtection false
     updated_output = StringIO()
     df_chat.to_csv(updated_output, index=False)
     updated_output.seek(0)
