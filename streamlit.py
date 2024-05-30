@@ -103,8 +103,8 @@ if uploaded_file is not None:
 
     fig, ax = plt.subplots(figsize=(12, 8))
     df_chat['hour_category'] = pd.cut(df_chat['time_in_min'], bins=24, labels=range(24))
-    df_chat['hour_category'].value_counts().head(25).plot(kind="bar", ax=ax, )
-    ax.set_title('Top 25 Hour Categories')
+    df_chat['hour_category'].value_counts().head(24).plot(kind="bar", ax=ax, )
+    ax.set_title('Top 24 Hour Categories')
     ax.set_xlabel('Hour Category')
     ax.set_ylabel('Count')
     st.pyplot(fig)
